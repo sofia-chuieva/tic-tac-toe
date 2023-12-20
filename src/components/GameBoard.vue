@@ -2,7 +2,12 @@
   <div class="center-container">
     <div class="game-container">
       <div v-for="(row, rowIndex) in board" :key="rowIndex" class="grid-col">
-        <div v-for="(_, colIndex) in row" :key="colIndex" class="cell"></div>
+        <div
+          v-for="(_, colIndex) in row"
+          :key="colIndex"
+          :class="{ 'mb-4': colIndex !== row.length - 1 }"
+          class="cell"
+        ></div>
       </div>
     </div>
   </div>
@@ -25,10 +30,10 @@ export default {
 }
 
 .game-container {
-  @apply grid bg-emerald-700 grid-cols-3;
+  @apply grid  grid-cols-3 gap-4;
 }
 
 .cell {
-  @apply w-[calc(90vh_/_3)] h-[calc(90vh_/_3)] outline outline-8 outline-teal-900;
+  @apply w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-3xl;
 }
 </style>
