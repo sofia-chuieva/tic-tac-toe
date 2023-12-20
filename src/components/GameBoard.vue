@@ -1,7 +1,9 @@
 <template>
-  <div class="game-container">
-    <div v-for="(row, rowIndex) in board" :key="rowIndex" class="grid-col">
-      <div v-for="(_, colIndex) in row" :key="colIndex" class="cell"></div>
+  <div class="center-container">
+    <div class="game-container">
+      <div v-for="(row, rowIndex) in board" :key="rowIndex" class="grid-col">
+        <div v-for="(_, colIndex) in row" :key="colIndex" class="cell"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,11 +20,15 @@ export default {
 </script>
 
 <style scoped>
+.center-container {
+  @apply flex min-h-screen justify-center items-center;
+}
+
 .game-container {
-  @apply h-screen w-[100vh] grid bg-emerald-700 grid-cols-3;
+  @apply grid bg-emerald-700 grid-cols-3;
 }
 
 .cell {
-  @apply w-[calc(100vh_/_3)] h-[calc(100vh_/_3)] outline outline-2 outline-teal-900;
+  @apply w-[calc(90vh_/_3)] h-[calc(90vh_/_3)] outline outline-8 outline-teal-900;
 }
 </style>
