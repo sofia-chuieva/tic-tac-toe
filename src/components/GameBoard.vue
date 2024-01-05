@@ -1,7 +1,19 @@
 <template>
   <div class="center-container">
     <div class="turn-container">
-      <p></p>
+      <div class="flex flex-row py-4 px-9">
+        <img
+          v-if="currentPlayer === 'X'"
+          src="../assets/cross-turn.svg"
+          alt="Cross turn"
+        />
+        <img
+          v-else-if="currentPlayer === 'O'"
+          src="../assets/circle-turn.svg"
+          alt="Circle turn"
+        />
+        <h2>TURN</h2>
+      </div>
     </div>
     <div class="game-container">
       <div v-for="(row, rowIndex) in board" :key="rowIndex" class="grid-col">
@@ -105,8 +117,12 @@ export default {
   @apply flex min-h-screen justify-center items-center flex-col;
 }
 
+h2 {
+  @apply text-xl uppercase text-[#0D1B2A] pl-2;
+}
+
 .turn-container {
-  @apply bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem];
+  @apply bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem] mb-8;
 }
 
 .game-container {
@@ -114,7 +130,7 @@ export default {
 }
 
 .cell {
-  @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem];
+  @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-3xl;
 
   .img-icon {
     @apply block mx-auto my-0;
