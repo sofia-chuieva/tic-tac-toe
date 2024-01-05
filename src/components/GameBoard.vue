@@ -1,5 +1,8 @@
 <template>
   <div class="center-container">
+    <div class="turn-container">
+      <p></p>
+    </div>
     <div class="game-container">
       <div v-for="(row, rowIndex) in board" :key="rowIndex" class="grid-col">
         <div
@@ -7,14 +10,22 @@
           :key="colIndex"
           :class="{ 'mb-4': colIndex !== row.length - 1 }"
           class="cell"
-          @click="handleCellClick(rowIndex, colIndex)"
+          @click="playMove(rowIndex, colIndex)"
         >
           <div class="img-icon">
             <img v-if="cell === 'X'" src="../assets/Cross.svg" alt="Cross" />
-            <img v-if="cell === 'O'" src="../assets/Circle.png" alt="Circle" />
+            <img
+              v-else-if="cell === 'O'"
+              src="../assets/Circle.svg"
+              alt="Circle"
+            />
           </div>
         </div>
       </div>
+    </div>
+    <div>
+      <p v-if="winner">{{ winner }} wins!</p>
+      <p v-else-if="isTie">It's a tie</p>
     </div>
   </div>
 </template>
@@ -26,13 +37,64 @@ export default {
   data() {
     return {
       board,
+      winner: null,
+      isTie: false,
+      gameover: false,
+      currentPlayer: "X",
     };
   },
   methods: {
-    handleCellClick(rowIndex, colIndex) {
-      // Update the cell value to 'X'
-      this.$set(this.board[rowIndex], colIndex, "X");
-      // this.board[rowIndex][colIndex] = "X";
+    checkTie() {
+      for (let i = 0; i < 3; i++) {
+        for (let k = 0; k < 3; k++) {
+          if (!board[i][k]) {
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+    checkWin() {
+      const player = this.currentPlayer;
+
+      for (let i = 0; i < 3; i++) {
+        if (this.board[i].every((cell) => cell === player)) {
+          return true;
+        }
+        if (this.board.every((row) => row[i] === player)) {
+          return true;
+        }
+      }
+
+      // Check diagonals
+      if (
+        this.board[0][0] === player &&
+        this.board[1][1] === player &&
+        this.board[2][2] === player
+      ) {
+        return true;
+      }
+      if (
+        this.board[0][2] === player &&
+        this.board[1][1] === player &&
+        this.board[2][0] === player
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    playMove(row, col) {
+      if (!this.board[row][col] && !this.winner) {
+        this.board[row][col] = this.currentPlayer;
+        if (this.checkWin()) {
+          this.winner = this.currentPlayer;
+        } else if (this.checkTie()) {
+          this.isTie = true;
+        } else {
+          this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+        }
+      }
     },
   },
 };
@@ -40,7 +102,11 @@ export default {
 
 <style lang="postcss" scoped>
 .center-container {
-  @apply flex min-h-screen justify-center items-center;
+  @apply flex min-h-screen justify-center items-center flex-col;
+}
+
+.turn-container {
+  @apply bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem];
 }
 
 .game-container {
@@ -48,7 +114,7 @@ export default {
 }
 
 .cell {
-  @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-3xl;
+  @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem];
 
   .img-icon {
     @apply block mx-auto my-0;
