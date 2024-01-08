@@ -23,13 +23,37 @@
           :class="{ 'mb-4': colIndex !== row.length - 1 }"
           class="cell"
           @click="playMove(rowIndex, colIndex)"
+          @mouseover="setHovered(rowIndex, colIndex)"
+          @mouseleave="clearHovered"
         >
           <div class="img-icon">
-            <img v-if="cell === 'X'" src="../assets/Cross.svg" alt="Cross" />
             <img
-              v-else-if="cell === 'O'"
+              v-if="cell === 'X' && !winner && !isTie"
+              src="../assets/Cross.svg"
+              alt="Cross"
+            />
+            <img
+              v-else-if="cell === 'O' && !winner && !isTie"
               src="../assets/Circle.svg"
               alt="Circle"
+            />
+            <img
+              v-else-if="
+                currentPlayer === 'X' &&
+                hoveredRow === rowIndex &&
+                hoveredCol === colIndex
+              "
+              src="../assets/Cross-outline.svg"
+              alt="Cross outline"
+            />
+            <img
+              v-else-if="
+                currentPlayer === 'O' &&
+                hoveredRow === rowIndex &&
+                hoveredCol === colIndex
+              "
+              src="../assets/Circle-outline.svg"
+              alt="Circle outline"
             />
           </div>
         </div>
@@ -53,9 +77,20 @@ export default {
       isTie: false,
       gameover: false,
       currentPlayer: "X",
+      hoveredRow: null,
+      hoveredCol: null,
     };
   },
   methods: {
+    setHovered(row, col) {
+      this.hoveredRow = row;
+      this.hoveredCol = col;
+    },
+
+    clearHovered() {
+      this.hoveredRow = null;
+      this.hoveredCol = null;
+    },
     checkTie() {
       for (let i = 0; i < 3; i++) {
         for (let k = 0; k < 3; k++) {
@@ -152,6 +187,9 @@ h2 {
 .cell {
   @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-3xl;
 
+  &:hover {
+    @apply cursor-pointer;
+  }
   .img-icon {
     @apply block mx-auto my-0;
   }
