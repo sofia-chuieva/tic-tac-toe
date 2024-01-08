@@ -1,13 +1,13 @@
 <template>
-  <game-board></game-board>
+  <game />
 </template>
 
 <script>
-import GameBoard from "./components/GameBoard.vue";
+import Game from "./components/Game.vue";
 
 export default {
   components: {
-    GameBoard,
+    Game,
   },
 };
 </script>
