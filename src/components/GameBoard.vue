@@ -105,6 +105,26 @@ export default {
           this.isTie = true;
         } else {
           this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+          setTimeout(() => {
+            this.cpuMove();
+          }, 1000);
+        }
+      }
+    },
+    cpuMove() {
+      for (let i = 0; i < 3; i++) {
+        for (let k = 0; k < 3; k++) {
+          if (!this.board[i][k]) {
+            this.board[i][k] = "O";
+            if (this.checkWin()) {
+              this.winner = "O";
+            } else if (this.checkTie()) {
+              this.isTie = true;
+            } else {
+              this.currentPlayer = "X";
+            }
+            return;
+          }
         }
       }
     },
