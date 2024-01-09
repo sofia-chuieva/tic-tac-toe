@@ -12,6 +12,7 @@
       :setHovered="setHovered"
       :clearHovered="clearHovered"
     ></GameBoard>
+    <ModalMenu></ModalMenu>
     <div>
       <p v-if="winner">{{ winner }} wins!</p>
       <p v-else-if="isTie">It's a tie</p>
@@ -23,6 +24,7 @@
 import { board } from "../constants";
 import GameBoard from "./GameBoard.vue";
 import GameHeader from "./GameHeader.vue";
+import ModalMenu from "./ModalMenu.vue";
 
 export default {
   data() {
@@ -115,7 +117,7 @@ export default {
       }
     },
   },
-  components: { GameHeader, GameBoard },
+  components: { GameHeader, GameBoard, ModalMenu },
 };
 </script>
 

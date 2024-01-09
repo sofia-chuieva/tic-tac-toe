@@ -28,6 +28,6 @@ export default {
 }
 
 h2 {
-  @apply text-xl uppercase text-[#0D1B2A] pl-2;
+  @apply text-xl uppercase font-bold text-[#0D1B2A] pl-2;
 }
 </style>
