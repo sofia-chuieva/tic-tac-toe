@@ -2,8 +2,14 @@
   <div class="modal-mask">
     <div class="choice-container">
       <h1>PICK PLAYER’S MARK</h1>
-      <div class="choice-options o">
-        <div class="choice x">
+      <div
+        :class="{
+          'choice-options': true,
+          o: currentPlayer === 'O',
+          x: currentPlayer === 'X',
+        }"
+      >
+        <div class="choice x" @click="setMark('X')">
           <svg
             width="28"
             height="28"
@@ -25,7 +31,7 @@
             />
           </svg>
         </div>
-        <div class="choice o">
+        <div class="choice o" @click="setMark('O')">
           <svg
             width="30"
             height="30"
@@ -44,6 +50,17 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["currentPlayer"],
+  methods: {
+    setMark(mark) {
+      this.$emit("chosen-mark", mark);
+    },
+  },
+};
+</script>
 
 <style lang="postcss" scoped>
 .choice-container {
@@ -81,19 +98,19 @@
     }
 
     &::after {
-      @apply content-[""] absolute z-10 bg-[#A9BCD0] rounded-xl top-2 bottom-2 w-[calc(50%-8px)];
+      @apply content-[""] absolute z-10 bg-[#A9BCD0] rounded-xl top-2 bottom-2 w-[calc(50%-8px)] transition-transform duration-300 ease-in-out transform will-change-transform;
     }
 
     .choice {
-      @apply flex-1 h-full flex items-center justify-center cursor-pointer z-20 transition-colors duration-200 ease-out;
+      @apply flex-1 h-full flex items-center justify-center cursor-pointer z-20 transition-[background-color] duration-200 ease-out;
     }
 
     .choice.o svg path {
-      @apply fill-[#A9BCD0] transition-colors duration-200 ease-in-out delay-100;
+      @apply fill-[#A9BCD0] transition-[fill] duration-200 ease-in-out will-change-[fill] delay-100;
     }
 
     .choice.x svg path {
-      @apply stroke-[#A9BCD0] transition-colors duration-200 ease-in-out delay-100;
+      @apply stroke-[#A9BCD0] transition-[fill] duration-200 ease-in-out will-change-[fill] delay-100;
     }
   }
 }

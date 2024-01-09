@@ -12,7 +12,10 @@
       :setHovered="setHovered"
       :clearHovered="clearHovered"
     ></GameBoard>
-    <ModalMenu></ModalMenu>
+    <ModalMenu
+      :currentPlayer="currentPlayer"
+      @chosen-mark="updateCurrentPlayer"
+    ></ModalMenu>
     <div>
       <p v-if="winner">{{ winner }} wins!</p>
       <p v-else-if="isTie">It's a tie</p>
@@ -33,7 +36,7 @@ export default {
       winner: null,
       isTie: false,
       gameover: false,
-      currentPlayer: "X",
+      currentPlayer: "O",
       hoveredRow: null,
       hoveredCol: null,
     };
@@ -115,6 +118,9 @@ export default {
           }
         }
       }
+    },
+    updateCurrentPlayer(player) {
+      this.currentPlayer = player;
     },
   },
   components: { GameHeader, GameBoard, ModalMenu },
