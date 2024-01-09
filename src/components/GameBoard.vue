@@ -66,7 +66,7 @@ export default {
   @apply grid  grid-cols-3 gap-4;
 }
 .cell {
-  @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-3xl;
+  @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-blue border-b-8 border-blue-dark rounded-3xl;
 
   &:hover {
     @apply cursor-pointer;

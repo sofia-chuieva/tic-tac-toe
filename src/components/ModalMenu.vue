@@ -64,18 +64,18 @@ export default {
 
 <style lang="postcss" scoped>
 .choice-container {
-  @apply bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem] flex flex-col px-4 h-52 justify-evenly text-center;
+  @apply bg-blue border-b-8 border-blue-dark rounded-[1.25rem] flex flex-col px-4 h-52 justify-evenly text-center;
 
   h1 {
-    @apply uppercase font-bold text-[#0D1B2A] text-2xl;
+    @apply uppercase font-bold text-blue-dark text-2xl;
   }
 
   p {
-    @apply uppercase text-[#0D1B2A] text-base;
+    @apply uppercase text-blue-dark text-base;
   }
 
   .choice-options {
-    @apply flex bg-[#0D1B2A] relative items-center justify-center h-16 p-2 rounded-xl;
+    @apply flex bg-blue-dark relative items-center justify-center h-16 p-2 rounded-xl;
 
     &.o {
       &::after {
@@ -83,7 +83,7 @@ export default {
       }
 
       .choice.o svg path {
-        @apply fill-[#0D1B2A];
+        @apply fill-blue-dark;
       }
     }
 
@@ -93,12 +93,12 @@ export default {
       }
 
       .choice.x svg path {
-        @apply stroke-[#0D1B2A];
+        @apply stroke-blue-dark;
       }
     }
 
     &::after {
-      @apply content-[""] absolute z-10 bg-[#A9BCD0] rounded-xl top-2 bottom-2 w-[calc(50%-8px)] transition-transform duration-300 ease-in-out transform will-change-transform;
+      @apply content-[""] absolute z-10 bg-blue-light rounded-xl top-2 bottom-2 w-[calc(50%-8px)] transition-transform duration-300 ease-in-out transform will-change-transform;
     }
 
     .choice {
@@ -106,11 +106,11 @@ export default {
     }
 
     .choice.o svg path {
-      @apply fill-[#A9BCD0] transition-[fill] duration-200 ease-in-out will-change-[fill] delay-100;
+      @apply fill-blue-light transition-[fill] duration-200 ease-in-out will-change-[fill] delay-100;
     }
 
     .choice.x svg path {
-      @apply stroke-[#A9BCD0] transition-[fill] duration-200 ease-in-out will-change-[fill] delay-100;
+      @apply stroke-blue-light transition-[fill] duration-200 ease-in-out will-change-[fill] delay-100;
     }
   }
 }

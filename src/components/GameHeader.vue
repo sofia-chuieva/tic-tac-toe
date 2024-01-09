@@ -24,10 +24,10 @@ export default {
 
 <style lang="postcss" scoped>
 .turn-container {
-  @apply bg-[#415a77] border-b-8 border-[#0d1b2a] rounded-[1.25rem] mb-8;
+  @apply bg-blue border-b-8 border-blue-dark rounded-[1.25rem] mb-8;
 }
 
 h2 {
-  @apply text-xl uppercase font-bold text-[#0D1B2A] pl-2;
+  @apply text-xl uppercase font-bold text-blue-dark pl-2;
 }
 </style>
