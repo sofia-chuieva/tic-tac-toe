@@ -1,6 +1,6 @@
 <template>
   <div class="turn-container">
-    <div class="flex flex-row py-4 px-9">
+    <div class="wrapper">
       <img
         v-if="currentPlayer === 'X'"
         src="../assets/cross-turn.svg"
@@ -25,6 +25,10 @@ export default {
 <style lang="postcss" scoped>
 .turn-container {
   @apply bg-blue border-b-8 border-blue-dark rounded-[1.25rem] mb-8;
+}
+
+.wrapper {
+  @apply flex flex-row py-4 px-9;
 }
 
 h2 {
