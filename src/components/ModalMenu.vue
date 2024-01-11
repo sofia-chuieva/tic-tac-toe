@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-mask">
+  <div :class="{ 'modal-mask': true, flex: isVisible, hidden: !isVisible }">
     <div class="choice-container">
       <h1>PICK PLAYER’S MARK</h1>
       <div
@@ -47,25 +47,45 @@
         </div>
       </div>
       <p>REMEMBER: X GOES FIRST</p>
+      <button @click="startGame">Start</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      isVisible: true,
+    };
+  },
   props: ["currentPlayer"],
   methods: {
     setMark(mark) {
       this.$emit("chosen-mark", mark);
+    },
+    startGame() {
+      this.isVisible = !this.isVisible;
     },
   },
 };
 </script>
 
 <style lang="postcss" scoped>
-.choice-container {
-  @apply bg-blue border-b-8 border-blue-dark rounded-[1.25rem] flex flex-col px-4 h-52 justify-evenly text-center;
+.modal-mask {
+  @apply fixed  items-center inset-0 z-[9999] bg-black bg-opacity-95 transition-opacity duration-300 ease-out will-change-[opacity];
 
+  &.modal-visible {
+    @apply flex items-center justify-center;
+  }
+}
+
+.choice-container {
+  @apply bg-blue border-b-8 border-[#23375a] rounded-[1.25rem] flex flex-col px-4 h-72 justify-evenly text-center max-w-sm mx-auto;
+
+  button {
+    @apply bg-blue-extra rounded-[1.125rem] leading-5 py-3 h-14 border-b-8 text-blue-dark uppercase text-xl border-[#0085b1] font-bold;
+  }
   h1 {
     @apply uppercase font-bold text-blue-dark text-2xl;
   }
