@@ -12,10 +12,7 @@
       :setHovered="setHovered"
       :clearHovered="clearHovered"
     ></GameBoard>
-    <ModalMenu
-      :currentPlayer="currentPlayer"
-      @chosen-mark="updateCurrentPlayer"
-    ></ModalMenu>
+    <ModalMenu @chosen-mark="updateCurrentPlayer"></ModalMenu>
     <div>
       <p v-if="winner">{{ winner }} wins!</p>
       <p v-else-if="isTie">It's a tie</p>
@@ -36,12 +33,15 @@ export default {
       winner: null,
       isTie: false,
       gameover: false,
-      currentPlayer: "O",
       hoveredRow: null,
       hoveredCol: null,
+      currentPlayer: "",
     };
   },
   methods: {
+    updateCurrentPlayer(player) {
+      this.currentPlayer = player;
+    },
     setHovered(row, col) {
       this.hoveredRow = row;
       this.hoveredCol = col;
@@ -95,32 +95,30 @@ export default {
         } else if (this.checkTie()) {
           this.isTie = true;
         } else {
-          this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
           setTimeout(() => {
             this.cpuMove();
+            this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
           }, 1000);
         }
       }
     },
     cpuMove() {
+      const cpuMark = this.currentPlayer === "X" ? "O" : "X";
       for (let i = 0; i < 3; i++) {
         for (let k = 0; k < 3; k++) {
           if (!this.board[i][k]) {
-            this.board[i][k] = "O";
+            this.board[i][k] = cpuMark;
             if (this.checkWin()) {
-              this.winner = "O";
+              this.winner = cpuMark;
             } else if (this.checkTie()) {
               this.isTie = true;
-            } else {
-              this.currentPlayer = "X";
             }
+            // Update currentPlayer only after checking for win or tie
+            this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
             return;
           }
         }
       }
-    },
-    updateCurrentPlayer(player) {
-      this.currentPlayer = player;
     },
   },
   components: { GameHeader, GameBoard, ModalMenu },

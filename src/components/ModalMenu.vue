@@ -56,14 +56,16 @@ export default {
   data() {
     return {
       isVisible: true,
+      currentPlayer: "X",
     };
   },
-  props: ["currentPlayer"],
+
   methods: {
     setMark(mark) {
-      this.$emit("chosen-mark", mark);
+      this.currentPlayer = mark;
     },
     startGame() {
+      this.$emit("chosen-mark", this.currentPlayer);
       this.isVisible = !this.isVisible;
     },
   },
