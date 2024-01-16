@@ -46,7 +46,6 @@
           </svg>
         </div>
       </div>
-      <p>REMEMBER: X GOES FIRST</p>
       <button @click="startGame">Start</button>
     </div>
   </div>
@@ -95,7 +94,7 @@ export default {
   }
 
   .choice-options {
-    @apply flex bg-blue-dark relative items-center justify-center h-16 p-2 rounded-xl;
+    @apply flex bg-blue-dark relative items-center justify-center h-16 p-2 rounded-[1.125rem];
 
     &.o {
       &::after {
