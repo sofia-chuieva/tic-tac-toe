@@ -1,5 +1,5 @@
 <template>
-  <div v-if="winner" class="modal">
+  <div :class="{ modal: true, flex: isVisible, hidden: !isVisible }">
     <div class="modal-content">
       <h1 v-if="isTie">It's a tie</h1>
       <h1 v-else :class="winner === 'X' ? 'x' : 'o'">
@@ -23,12 +23,29 @@
 <script>
 export default {
   props: ["winner", "isTie"],
+  data() {
+    return {
+      isVisible: false,
+    };
+  },
+  watch: {
+    winner(newValue) {
+      if (newValue === "X" || newValue === "O" || this.isTie) {
+        this.isVisible = true;
+      }
+    },
+    isTie(newValue) {
+      if (newValue || this.winner === "X" || this.winner === "O") {
+        this.isVisible = true;
+      }
+    },
+  },
 };
 </script>
 
 <style lang="postcss" scoped>
 .modal {
-  @apply fixed inset-0 z-[9999] flex items-center justify-center h-screen bg-black bg-opacity-50 transition-opacity duration-300 ease-out will-change-[opacity];
+  @apply fixed inset-0 z-[9999] items-center justify-center h-screen bg-black bg-opacity-50 transition-opacity duration-300 ease-out will-change-[opacity];
   .modal-content {
     @apply bg-blue border-b-8 border-[#23375a] rounded-[1.25rem] flex flex-col px-10 h-56 justify-center text-center mx-auto;
 
@@ -45,7 +62,7 @@ export default {
       }
     }
     h1 {
-      @apply text-white text-3xl items-center gap-6 flex uppercase font-bold mb-8;
+      @apply text-white text-3xl justify-center items-center gap-6 flex uppercase font-bold mb-8;
 
       img {
         @apply w-16 h-16;

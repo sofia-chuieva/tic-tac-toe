@@ -24,7 +24,7 @@ export default {
 
 <style lang="postcss" scoped>
 .turn-container {
-  @apply bg-blue border-b-8 border-blue-dark rounded-[1.25rem] mb-8;
+  @apply bg-blue border-b-8 border-blue-dark rounded-[1.25rem];
 }
 
 .wrapper {

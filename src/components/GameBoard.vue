@@ -63,7 +63,7 @@ export default {
 
 <style lang="postcss" scoped>
 .game-container {
-  @apply grid  grid-cols-3 gap-4;
+  @apply grid grid-cols-3 gap-4 my-6;
 }
 .cell {
   @apply relative flex items-center w-[calc(60vh_/_3)] h-[calc(60vh_/_3)] bg-blue border-b-8 border-blue-dark rounded-3xl;

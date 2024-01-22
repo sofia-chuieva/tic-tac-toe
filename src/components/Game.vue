@@ -12,6 +12,13 @@
       :setHovered="setHovered"
       :clearHovered="clearHovered"
     ></GameBoard>
+    <GameScores
+      :currentPlayer="currentPlayer"
+      :isTie="isTie"
+      :youScore="youScore"
+      :tiesScore="tiesScore"
+      :cpuScore="cpuScore"
+    ></GameScores>
     <ModalMenu @chosen-mark="updateCurrentPlayer"></ModalMenu>
     <Modal :winner="winner" :isTie="isTie"></Modal>
   </div>
@@ -23,6 +30,7 @@ import GameBoard from "./GameBoard.vue";
 import GameHeader from "./GameHeader.vue";
 import ModalMenu from "./ModalMenu.vue";
 import Modal from "./Modal.vue";
+import GameScores from "./GameScores.vue";
 
 export default {
   data() {
@@ -34,9 +42,19 @@ export default {
       hoveredRow: null,
       hoveredCol: null,
       currentPlayer: "",
+      youScore: 0,
+      tiesScore: 0,
+      cpuScore: 0,
     };
   },
   methods: {
+    incrementScore(player) {
+      if (player === "X") {
+        this.youScore += 1;
+      } else if (player === "O") {
+        this.cpuScore += 1;
+      }
+    },
     updateCurrentPlayer(player) {
       this.currentPlayer = player;
     },
@@ -118,7 +136,7 @@ export default {
       }
     },
   },
-  components: { GameHeader, GameBoard, ModalMenu, Modal },
+  components: { GameHeader, GameBoard, ModalMenu, Modal, GameScores },
 };
 </script>
 
