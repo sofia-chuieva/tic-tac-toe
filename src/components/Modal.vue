@@ -43,7 +43,8 @@ export default {
   methods: {
     nextRound() {
       setTimeout(() => {
-        this.isVisible = !this.isVisible;
+        this.isVisible = false;
+        this.$emit("next-round");
       });
     },
   },

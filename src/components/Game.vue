@@ -20,7 +20,11 @@
       :cpuScore="cpuScore"
     ></GameScores>
     <ModalMenu @chosen-mark="updateCurrentPlayer"></ModalMenu>
-    <Modal :winner="winner" :isTie="isTie"></Modal>
+    <Modal
+      :winner="winner"
+      :isTie="isTie"
+      @next-round="handleNextRound"
+    ></Modal>
   </div>
 </template>
 
@@ -48,12 +52,19 @@ export default {
     };
   },
   methods: {
+    handleNextRound() {
+      this.board = [...Array(3)].map(() => Array(3).fill(null));
+      this.winner = null;
+      this.isTie = false;
+      this.gameover = false;
+      this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+    },
     incrementScore(player) {
       if (this.isTie) {
         this.tiesScore += 1;
       } else if (
         (player === "X" && this.winner === "X") ||
-        (player === "O" && this.winner === "X")
+        (player === "O" && this.winner === "O")
       ) {
         this.youScore += 1;
       } else {
