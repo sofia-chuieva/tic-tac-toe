@@ -13,10 +13,7 @@
       :clearHovered="clearHovered"
     ></GameBoard>
     <ModalMenu @chosen-mark="updateCurrentPlayer"></ModalMenu>
-    <div>
-      <p v-if="winner">{{ winner }} wins!</p>
-      <p v-else-if="isTie">It's a tie</p>
-    </div>
+    <Modal :winner="winner" :isTie="isTie"></Modal>
   </div>
 </template>
 
@@ -25,6 +22,7 @@ import { board } from "../constants";
 import GameBoard from "./GameBoard.vue";
 import GameHeader from "./GameHeader.vue";
 import ModalMenu from "./ModalMenu.vue";
+import Modal from "./Modal.vue";
 
 export default {
   data() {
@@ -60,8 +58,7 @@ export default {
       }
       return true;
     },
-    checkWin() {
-      const player = this.currentPlayer;
+    checkWin(player) {
       for (let i = 0; i < 3; i++) {
         if (this.board[i].every((cell) => cell === player)) {
           return true;
@@ -90,7 +87,7 @@ export default {
     playMove(row, col) {
       if (!this.board[row][col] && !this.winner) {
         this.board[row][col] = this.currentPlayer;
-        if (this.checkWin()) {
+        if (this.checkWin(this.currentPlayer)) {
           this.winner = this.currentPlayer;
         } else if (this.checkTie()) {
           this.isTie = true;
@@ -108,7 +105,7 @@ export default {
         for (let k = 0; k < 3; k++) {
           if (!this.board[i][k]) {
             this.board[i][k] = cpuMark;
-            if (this.checkWin()) {
+            if (this.checkWin(cpuMark)) {
               this.winner = cpuMark;
             } else if (this.checkTie()) {
               this.isTie = true;
@@ -121,7 +118,7 @@ export default {
       }
     },
   },
-  components: { GameHeader, GameBoard, ModalMenu },
+  components: { GameHeader, GameBoard, ModalMenu, Modal },
 };
 </script>
 
