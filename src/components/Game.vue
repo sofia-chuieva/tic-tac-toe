@@ -107,6 +107,7 @@ export default {
         this.board[row][col] = this.currentPlayer;
         if (this.checkWin(this.currentPlayer)) {
           this.winner = this.currentPlayer;
+          this.incrementScore(this.currentPlayer);
         } else if (this.checkTie()) {
           this.isTie = true;
         } else {
@@ -125,6 +126,7 @@ export default {
             this.board[i][k] = cpuMark;
             if (this.checkWin(cpuMark)) {
               this.winner = cpuMark;
+              this.incrementScore(cpuMark);
             } else if (this.checkTie()) {
               this.isTie = true;
             }

@@ -14,7 +14,7 @@
 
       <div class="modal-btns">
         <button class="quit-btn">Quit</button>
-        <button class="next-round-btn">Next Round</button>
+        <button @click="nextRound" class="next-round-btn">Next Round</button>
       </div>
     </div>
   </div>
@@ -38,6 +38,13 @@ export default {
       if (newValue || this.winner === "X" || this.winner === "O") {
         this.isVisible = true;
       }
+    },
+  },
+  methods: {
+    nextRound() {
+      setTimeout(() => {
+        this.isVisible = !this.isVisible;
+      });
     },
   },
 };
