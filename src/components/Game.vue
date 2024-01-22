@@ -85,7 +85,7 @@ export default {
     checkTie() {
       for (let i = 0; i < 3; i++) {
         for (let k = 0; k < 3; k++) {
-          if (!board[i][k]) {
+          if (!this.board[i][k]) {
             return false;
           }
         }
