@@ -49,9 +49,14 @@ export default {
   },
   methods: {
     incrementScore(player) {
-      if (player === "X") {
+      if (this.isTie) {
+        this.tiesScore += 1;
+      } else if (
+        (player === "X" && this.winner === "X") ||
+        (player === "O" && this.winner === "X")
+      ) {
         this.youScore += 1;
-      } else if (player === "O") {
+      } else {
         this.cpuScore += 1;
       }
     },
@@ -110,6 +115,7 @@ export default {
           this.incrementScore(this.currentPlayer);
         } else if (this.checkTie()) {
           this.isTie = true;
+          this.incrementScore();
         } else {
           setTimeout(() => {
             this.cpuMove();
@@ -129,6 +135,7 @@ export default {
               this.incrementScore(cpuMark);
             } else if (this.checkTie()) {
               this.isTie = true;
+              this.incrementScore();
             }
             // Update currentPlayer only after checking for win or tie
             this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
