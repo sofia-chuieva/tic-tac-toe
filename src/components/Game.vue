@@ -46,6 +46,7 @@ export default {
       hoveredRow: null,
       hoveredCol: null,
       currentPlayer: "",
+      cpuMark: "",
       youScore: 0,
       tiesScore: 0,
       cpuScore: 0,
@@ -59,18 +60,7 @@ export default {
       this.gameover = false;
       this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
     },
-    incrementScore(player) {
-      if (this.isTie) {
-        this.tiesScore += 1;
-      } else if (
-        (player === "X" && this.winner === "X") ||
-        (player === "O" && this.winner === "O")
-      ) {
-        this.youScore += 1;
-      } else {
-        this.cpuScore += 1;
-      }
-    },
+
     updateCurrentPlayer(player) {
       this.currentPlayer = player;
     },
@@ -123,10 +113,10 @@ export default {
         this.board[row][col] = this.currentPlayer;
         if (this.checkWin(this.currentPlayer)) {
           this.winner = this.currentPlayer;
-          this.incrementScore(this.currentPlayer);
+          this.youScore += 1;
         } else if (this.checkTie()) {
           this.isTie = true;
-          this.incrementScore();
+          this.tiesScore += 1;
         } else {
           setTimeout(() => {
             this.cpuMove();
@@ -136,17 +126,17 @@ export default {
       }
     },
     cpuMove() {
-      const cpuMark = this.currentPlayer === "X" ? "O" : "X";
+      this.cpuMark = this.currentPlayer === "X" ? "O" : "X";
       for (let i = 0; i < 3; i++) {
         for (let k = 0; k < 3; k++) {
           if (!this.board[i][k]) {
-            this.board[i][k] = cpuMark;
-            if (this.checkWin(cpuMark)) {
-              this.winner = cpuMark;
-              this.incrementScore(cpuMark);
+            this.board[i][k] = this.cpuMark;
+            if (this.checkWin(this.cpuMark)) {
+              this.winner = this.cpuMark;
+              this.cpuScore += 1;
             } else if (this.checkTie()) {
               this.isTie = true;
-              this.incrementScore();
+              this.tiesScore += 1;
             }
             // Update currentPlayer only after checking for win or tie
             this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
