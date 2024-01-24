@@ -127,22 +127,32 @@ export default {
     },
     cpuMove() {
       this.cpuMark = this.currentPlayer === "X" ? "O" : "X";
+      const emptyCells = [];
+
       for (let i = 0; i < 3; i++) {
         for (let k = 0; k < 3; k++) {
           if (!this.board[i][k]) {
-            this.board[i][k] = this.cpuMark;
-            if (this.checkWin(this.cpuMark)) {
-              this.winner = this.cpuMark;
-              this.cpuScore += 1;
-            } else if (this.checkTie()) {
-              this.isTie = true;
-              this.tiesScore += 1;
-            }
-            // Update currentPlayer only after checking for win or tie
-            this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
-            return;
+            emptyCells.push({ row: i, col: k });
           }
         }
+      }
+
+      if (emptyCells.length > 0) {
+        const randomIndex = Math.floor(Math.random() * emptyCells.length);
+        const { row, col } = emptyCells[randomIndex];
+
+        // Update the board
+        this.board[row][col] = this.cpuMark;
+
+        // Check for win or tie
+        if (this.checkWin(this.cpuMark)) {
+          this.winner = this.cpuMark;
+          this.cpuScore += 1;
+        } else if (this.checkTie()) {
+          this.isTie = true;
+          this.tiesScore += 1;
+        }
+        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
       }
     },
   },
