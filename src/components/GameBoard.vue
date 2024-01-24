@@ -4,8 +4,7 @@
       <div
         v-for="(cell, colIndex) in row"
         :key="colIndex"
-        :class="{ 'mb-4': colIndex !== row.length - 1 }"
-        class="cell"
+        :class="{ cell: true, 'mb-4': colIndex !== row.length - 1 }"
         @click="playMove(rowIndex, colIndex)"
         @mouseover="setHovered(rowIndex, colIndex)"
         @mouseleave="clearHovered"
