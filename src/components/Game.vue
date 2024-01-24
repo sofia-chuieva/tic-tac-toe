@@ -19,11 +19,12 @@
       :tiesScore="tiesScore"
       :cpuScore="cpuScore"
     ></GameScores>
-    <ModalMenu @chosen-mark="updateCurrentPlayer"></ModalMenu>
+    <ModalMenu ref="modalMenu" @chosen-mark="updateCurrentPlayer"></ModalMenu>
     <Modal
       :winner="winner"
       :isTie="isTie"
       @next-round="handleNextRound"
+      @quit-game="quitGame"
     ></Modal>
   </div>
 </template>
@@ -128,7 +129,6 @@ export default {
     cpuMove() {
       this.cpuMark = this.currentPlayer === "X" ? "O" : "X";
       const emptyCells = [];
-
       for (let i = 0; i < 3; i++) {
         for (let k = 0; k < 3; k++) {
           if (!this.board[i][k]) {
@@ -154,6 +154,22 @@ export default {
         }
         this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
       }
+    },
+    quitGame() {
+      this.board = [...Array(3)].map(() => Array(3).fill(null));
+      this.winner = null;
+      this.isTie = false;
+      this.gameover = false;
+      this.hoveredRow = null;
+      this.hoveredCol = null;
+      this.currentPlayer = "";
+      this.cpuMark = "";
+      this.youScore = 0;
+      this.tiesScore = 0;
+      this.cpuScore = 0;
+
+      // Show ModalMenu again
+      this.$refs.modalMenu.isVisible = true;
     },
   },
   components: { GameHeader, GameBoard, ModalMenu, Modal, GameScores },

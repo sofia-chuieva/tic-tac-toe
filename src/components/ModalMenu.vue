@@ -74,7 +74,7 @@ export default {
 
 <style lang="postcss" scoped>
 .modal-mask {
-  @apply fixed  items-center inset-0 z-[9999] bg-black bg-opacity-95 transition-opacity duration-300 ease-out will-change-[opacity];
+  @apply fixed items-center inset-0 z-[9999] bg-black bg-opacity-95 transition-opacity duration-300 ease-out will-change-[opacity];
 
   &.modal-visible {
     @apply flex items-center justify-center;

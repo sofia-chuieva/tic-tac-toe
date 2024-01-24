@@ -11,9 +11,8 @@
         />
         takes the round
       </h1>
-
       <div class="modal-btns">
-        <button class="quit-btn">Quit</button>
+        <button @click="quitGame" class="quit-btn">Quit</button>
         <button @click="nextRound" class="next-round-btn">Next Round</button>
       </div>
     </div>
@@ -46,6 +45,10 @@ export default {
         this.isVisible = false;
         this.$emit("next-round");
       });
+    },
+    quitGame() {
+      this.isVisible = false;
+      this.$emit("quit-game");
     },
   },
 };
